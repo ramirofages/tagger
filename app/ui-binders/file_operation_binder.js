@@ -7,6 +7,9 @@ function init()
 
   $("body").on("click", (e)=>{
     let target = $(e.target)
+    if(target.is("i"))
+      target=target.parent()
+
     if(target.is("button"))
     {
       if(target.attr('button-action')=='open')

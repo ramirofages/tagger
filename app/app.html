@@ -29,7 +29,7 @@
           <div class="col s12">
 
             <ul id="uploaded_file_list">
-              <!-- ################### SEARCH RESULT TEMPLATE ############################## -->
+              <!-- ################### FILES TO UPLOAD LIST TEMPLATE ############################## -->
               <script id="uploaded_file_list_template" type="text/x-handlebars-template">
 
                   {{#files}}
@@ -46,7 +46,6 @@
               </script>
 
               <!-- ######################################################################## -->
-
             </ul>
             <div class="valign-wrapper">
               <button id="save_files_btn" class="btn waves-effect waves-light center-block valign">Guardar
@@ -95,7 +94,11 @@
             <div class="valign-wrapper">
               <h5 class="white-text valign center" style="width: 100%">
                 search results
-                <button button-action="export_results" class="btn waves-effect waves-light right" style="font-size: 1rem; padding: 0 4px">Export</button>
+                <button button-action="export_results"  class="btn waves-effect waves-light right tooltipped"
+                                                        data-position="left"
+                                                        data-delay="50"
+                                                        data-tooltip="Exports search results to a new folder in desktop"
+                                                        style="font-size: 1rem; padding: 0 4px">Export results</button>
 
               </h5>
 
@@ -114,17 +117,32 @@
                     <li>
                       <div class="card blue-grey lighten-5" style="padding-left: 10px; border-radius: 4px;">
                         <div class="row">
-                          <div class="col s10">
-                            <h5 class="truncate">{{name}}</h5>
+                          <div class="col s11">
+                            <h5 class="truncate">
+                              <a class="btn-floating btn-small waves-effect waves-light orange"><i class="material-icons">mode_edit</i></a>
+                              {{name}}
+                            </h5>
                             <div class="chips" style="margin-bottom: 0; border-bottom: 0">
                               {{#tags}}
                               <div class="chip white-text">{{this}}</div>
                               {{/tags}}
                             </div>
                           </div>
-                          <div class="col s2">
-                            <button button-action="export" path="{{path}}" class="btn waves-effect waves-light right" style="margin-bottom: 5px; margin-top: 5px;">Export</button>
-                            <button button-action="open" path="{{path}}" class="btn waves-effect waves-light right" >Open</button>
+                          <div class="col s1">
+
+                            <button button-action="export" path="{{path}}"  class="btn-small btn-floating waves-effect waves-light right tooltipped"
+                                                                            data-position="left"
+                                                                            data-delay="50"
+                                                                            data-tooltip="Export file"
+                                                                            style="margin-bottom: 5px; margin-top: 5px;">
+                              <i class="material-icons">file_download</i>
+                            </button>
+                            <button button-action="open" path="{{path}}" class="btn-small btn-floating waves-effect waves-light right tooltipped"
+                                                                          data-position="left"
+                                                                          data-delay="50"
+                                                                          data-tooltip="Open file">
+                              <i class="material-icons">folder_open</i>
+                            </button>
                           </div>
                         </div>
                       </div>
@@ -143,6 +161,7 @@
               </script>
 
               <!-- ######################################################################## -->
+
 
             </ul>
 

@@ -15,7 +15,7 @@ export default class FileSearchView
     this.file_results_list.empty()
 
       this.file_results_list.append(this.file_search_template({files: files}))
-
+      $('.tooltipped').tooltip();
 
   }
 }

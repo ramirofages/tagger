@@ -27,6 +27,7 @@ export default class FileSearchController
 
   export_file(source)
   {
+    console.log("open"+ this.db_base_path+path)
     let dest = dialog.showSaveDialog({title: "Export file",
                                       defaultPath: app.getPath("desktop")+"\\"+source.split("\\").pop(),
                                       filters: []
@@ -51,7 +52,7 @@ export default class FileSearchController
           jetpack.dir(dest_folder_path)
 
           this.progress_bar.init(files.length, ()=>{
-            $("#search_export_complete").show()
+            shell.openItem(dest_folder_path)
             setTimeout(()=>{$("#search_export_complete").hide()},4000)
           })
 
