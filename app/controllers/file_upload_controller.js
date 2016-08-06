@@ -7,10 +7,9 @@ import ProgressBar from '../ui_components/progress_bar'
 
 export default class FileUploadController
 {
-  constructor(file_list)
+  constructor()
   {
     this.file_upload_view = new FileUploadView()
-    this.file_list = file_list
     this.file_storage = new FileStorage()
     this.tag_storage = new TagStorage()
     this.progress_bar = new ProgressBar($("#file_upload_progress_bar"))
@@ -32,25 +31,22 @@ export default class FileUploadController
   }
 
 
-  save_files()
+  save_files(files)
   {
     let all_tags = []
     $('#file_acquired').hide()
-    this.progress_bar.init(this.file_list.children('li').length,()=>{
+    this.progress_bar.init(files.length,()=>{
       this.tag_storage.save_tags(this._filter_tags(all_tags))
     })
 
-    this.file_list.children('li').each( (index, element)=>{
-      let path = $(element).find("#file_path").text()
-      let name = $(element).find("#file_name").text()
-      let tags = $(element).find("#file_tags").val().trim().split(" ")
-
-      all_tags.push(tags)
-      this.file_storage.save_file({ name: name, path: path, tags: tags}).then( (id)=>{
+    for (let file of files)
+    {
+      all_tags.push(file.tags)
+      this.file_storage.save_file(file).then( id=>{
         this.progress_bar.item_finished()
-
       })
-    })
+    }
+
 
 
   }

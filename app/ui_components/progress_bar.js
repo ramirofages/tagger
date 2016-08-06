@@ -24,4 +24,9 @@ export default class ProgressBar
       setTimeout( ()=>{this.bar.hide()},500)
     }
   }
+
+  is_completed()
+  {
+    return this.current_item_count === this.total_item_count
+  }
 }

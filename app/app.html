@@ -35,7 +35,7 @@
                   {{#files}}
                     <li style="opacity: 0">
                       <div class="card-panel blue-grey lighten-5">
-                        <h5 id='file_name' class='truncate'>{{name}}</h5>
+                        <input id='file_name' value="{{name}}" style="font-size: 1.5rem"></input>
                         <button button-action='open' path="{{path}}" class='btn waves-effect waves-light new-file-button'>Open</button>
                         <strong id='file_path'>{{path}}</strong><br><br>
                         <textarea id="file_tags" class="materialize-textarea" style="padding: 0; margin: 0" placeholder="tag1 tag-2" ></textarea>
@@ -46,6 +46,7 @@
               </script>
 
               <!-- ######################################################################## -->
+
             </ul>
             <div class="valign-wrapper">
               <button id="save_files_btn" class="btn waves-effect waves-light center-block valign">Guardar

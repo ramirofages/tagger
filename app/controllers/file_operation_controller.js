@@ -17,18 +17,18 @@ export default class FileSearchController
   }
   open_file(path)
   {
-    shell.openItem(path)
+    shell.openItem(this.db_base_path+path)
   }
 
   export_file(source)
   {
     let dest = dialog.showSaveDialog({title: "Export file",
-                                      defaultPath: source,
-                                      filters: [{name: 'All Files', extensions: ['*']}]
+                                      defaultPath: app.getPath("desktop")+"\\"+source.split("\\").pop(),
+                                      filters: []
                                     })
     if(dest != null)
     {
-      jetpack.copy(source, dest);
+      jetpack.copy(this.db_base_path+source, dest+this._get_extension(source,dest));
     }
 
   }
@@ -54,6 +54,7 @@ export default class FileSearchController
           for (let f of files) {
 
             let new_file_name = this._get_new_file_name(this.db_base_path+f.path, folder_path)
+
             jetpack.copyAsync(this.db_base_path+f.path,folder_path+new_file_name).then((id)=>{
               this.progress_bar.item_finished()
             })
@@ -65,6 +66,14 @@ export default class FileSearchController
 
   }
 
+  _get_extension(source,dest)
+  {
+    let destination = dest.split("\\").pop().split('.')
+    if(destination.length === 2)
+      return ""
+    else
+      return "."+source.split("\\").pop().split('.').pop()
+  }
   _get_new_file_name(source_path, dest_folder_path)
   {
 
