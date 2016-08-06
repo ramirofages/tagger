@@ -1,0 +1,17 @@
+{
+  "name": "Tagger",
+  "productName": "Tagger",
+  "description": "Add tags to your files",
+  "version": "1.0.0",
+  "author": "Ramiro Fages ",
+  "copyright": "",
+  "homepage": "",
+  "license": "MIT",
+  "main": "background.js",
+  "dependencies": {
+    "dexie": "^1.4.1",
+    "fs-jetpack": "^0.9.0",
+    "jquery": "^3.1.0",
+    "materialize-css": "^0.97.7"
+  }
+}
