@@ -19,50 +19,7 @@ export default class FileCardBuilder
     return card
   }
 
-  loaded_file_card(name,path, tags)
-  {
-    let card = $(document.createElement('li'))
-
-    let card_panel = $(document.createElement('div'))
-        card_panel.addClass('card blue-grey lighten-5')
-        card_panel.css('padding-left','10px')
-        card_panel.css('border-radius','4px')
-
-        let collection_holder = $(document.createElement('ul'))
-        let collection_item =   $(document.createElement('li'))
-            collection_item.addClass('collection-item')
-            let item_name = $(document.createElement('h5'))
-                item_name.addClass('truncate')
-                item_name.append(name)
-                item_name.append("<button button-action='export' path='"+path+"' class='btn waves-effect waves-light right' style= 'margin: 3px 4px 0 0; padding: 0 1rem; font-size: 1rem'>Export</button>")
-                item_name.append("<button button-action='open' path='"+path+"' class='btn waves-effect waves-light right' style= 'margin: 3px 4px 0 0; padding: 0 1rem; font-size: 1rem'>Open</button>")
-        collection_item.append(item_name)
-        collection_holder.append(collection_item)
-        let collection_item_tags =   $(document.createElement('li'))
-            collection_item_tags.addClass('collection-item')
-
-            tags.forEach( (elem,index)=> {
-              let chip = $(document.createElement('div'))
-                  chip.addClass('chip white-text')
-                  chip.append(elem)
-
-                  collection_item_tags.append(chip)
-            })
-        collection_holder.append(collection_item_tags)
-        card_panel.append(collection_holder)
-    card.append(card_panel)
-    return card
-  }
-
-  files_not_found_card()
-  {
-    let card = $(document.createElement('li'))
-    let card_panel = $(document.createElement('div'))
-        card_panel.addClass('card-panel blue-grey lighten-4')
-        card_panel.append("<h4 class='center-align'>"+ "No results found" +"</h4>")
-    card.append(card_panel)
-    return card
-  }
+  
 }
 
 // para tener de referencia:

@@ -10,10 +10,10 @@ var app = remote.app;
 const {dialog} = require('electron').remote
 var appDir = jetpack.cwd(app.getAppPath());
 
-import * as FileUploadBinder  from './ui-binders/file_upload_binder';
-import * as TabBinder         from './ui-binders/tab_binder';
-import * as FileSearchBinder  from './ui-binders/file_search_binder';
-import * as TagViewerBinder   from './ui-binders/tag_viewer_binder';
+import * as FileUploadBinder      from './ui-binders/file_upload_binder';
+import * as TabBinder             from './ui-binders/tab_binder';
+import * as FileSearchBinder      from './ui-binders/file_search_binder';
+import * as TagViewerBinder       from './ui-binders/tag_viewer_binder';
 import * as FileOperationBinder   from './ui-binders/file_operation_binder';
 
 

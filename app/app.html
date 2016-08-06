@@ -4,14 +4,10 @@
     <meta charset="utf-8">
     <title>Tagger</title>
 
-
     <link href="stylesheets/main.css" rel="stylesheet" type="text/css">
 
     <script src="helpers/context_menu.js"></script>
     <script src="helpers/external_links.js"></script>
-
-
-
 
 </head>
 <body>
@@ -91,7 +87,44 @@
                 <div class="determinate" style="width: 0%"></div>
             </div>
 
+
             <ul id="search_results_file_list">
+              <!-- ################### SEARCH RESULT TEMPLATE ############################## -->
+              <script id="search_results_file_list_template" type="text/x-handlebars-template">
+                {{#if files.length}}
+                  {{#files}}
+                    <li>
+                      <div class="card blue-grey lighten-5" style="padding-left: 10px; border-radius: 4px;">
+                        <div class="row">
+                          <div class="col s10">
+                            <h5 class="truncate">{{name}}</h5>
+                            <div class="chips" style="margin-bottom: 0; border-bottom: 0">
+                              {{#tags}}
+                              <div class="chip white-text">{{this}}</div>
+                              {{/tags}}
+                            </div>
+                          </div>
+                          <div class="col s2">
+                            <button button-action="export" path="{{path}}" class="btn waves-effect waves-light right" style="margin-bottom: 5px; margin-top: 5px;">Export</button>
+                            <button button-action="open" path="{{path}}" class="btn waves-effect waves-light right" >Open</button>
+                          </div>
+                        </div>
+                      </div>
+
+                    </li>
+                  {{/files}}
+                {{else}}
+                  <li>
+                    <div class="card red lighten-1" style="padding-left: 10px; border-radius: 4px;">
+                      <h5 class='center-align'> No results </h5>
+                    </div>
+                  </li>
+                {{/if}}
+
+
+              </script>
+
+              <!-- ######################################################################## -->
 
             </ul>
 

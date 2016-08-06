@@ -3,7 +3,7 @@ import FileSearchController from '../controllers/file_search_controller';
 export
 function init()
 {
-  let file_search_controller = new FileSearchController($('#search_results_file_list'))
+  let file_search_controller = new FileSearchController()
 
 
   $("#tags_search_input").keypress(function (e) {

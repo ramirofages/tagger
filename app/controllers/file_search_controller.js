@@ -1,15 +1,15 @@
-import FileCardBuilder from '../component_builders/file_card_builder';
+import FileSearchView from '../views/file_search_view';
+
 import FileStorage from '../models/file_storage'
 
 
 
 export default class FileSearchController
 {
-  constructor(file_list)
+  constructor()
   {
 
-    this.file_list = file_list
-    this.card_builder = new FileCardBuilder()
+    this.file_search_view = new FileSearchView()
     this.file_storage = new FileStorage()
     $("#preloader").hide()
     setTimeout(function(){ $("#tags_search_input").focus() }, 300);
@@ -33,17 +33,8 @@ export default class FileSearchController
     {
       let tags = tag_string.split(" ")
 
-      let files_promise = this.file_storage.files_with_tags(tags)
-      this.file_list.empty()
-      files_promise.then( files =>{
-        if(files.length > 0)
-        {
-          for (let f of files) {
-            this.file_list.append(this.card_builder.loaded_file_card(f.name,this.db_base_path + f.path, f.tags))
-          }
-        }else {
-          this.file_list.append(this.card_builder.files_not_found_card())
-        }
+      this.file_storage.files_with_tags(tags).then( files =>{
+        this.file_search_view.show_file_results(files)
       })
 
 

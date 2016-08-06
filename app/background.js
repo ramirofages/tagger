@@ -61,7 +61,10 @@ app.on('ready', function () {
     let no_errors = check_database_config()
 
     if(no_errors){
-      //setApplicationMenu();
+      if (env.name !== 'production') {
+          setApplicationMenu();
+      }
+
 
       var mainWindow = createWindow('main', {
           width: 1000,
