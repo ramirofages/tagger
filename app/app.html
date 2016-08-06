@@ -28,8 +28,24 @@
         <div id="file_acquired" class="row" hidden>
           <div class="col s12">
 
-            <ul id="uploaded-file-list">
+            <ul id="uploaded_file_list">
+              <!-- ################### SEARCH RESULT TEMPLATE ############################## -->
+              <script id="uploaded_file_list_template" type="text/x-handlebars-template">
 
+                  {{#files}}
+                    <li style="opacity: 0">
+                      <div class="card-panel blue-grey lighten-5">
+                        <h5 id='file_name' class='truncate'>{{name}}</h5>
+                        <button button-action='open' path="{{path}}" class='btn waves-effect waves-light new-file-button'>Open</button>
+                        <strong id='file_path'>{{path}}</strong><br><br>
+                        <textarea id="file_tags" class="materialize-textarea" style="padding: 0; margin: 0" placeholder="tag1 tag-2" ></textarea>
+                        <label for="file_tags" class="">file tags</label>
+                      </div>
+                    </li>
+                  {{/files}}
+              </script>
+
+              <!-- ######################################################################## -->
             </ul>
             <div class="valign-wrapper">
               <button id="save_files_btn" class="btn waves-effect waves-light center-block valign">Guardar
@@ -62,7 +78,8 @@
             <h5 class="white-text center-align"> tag viewer </h5>
             <div class="card large orange" style="overflow-y: auto">
 
-              <ul id="tag_viewer_list" class="collection" style="margin: 0.5rem 0.3rem 1rem 0.3rem">
+              <ul id="tag_viewer_list" class="collection" style="margin: 0.3rem 0.3rem">
+
               </ul>
 
 

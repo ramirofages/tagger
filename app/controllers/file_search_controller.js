@@ -12,7 +12,7 @@ export default class FileSearchController
     this.file_search_view = new FileSearchView()
     this.file_storage = new FileStorage()
     $("#preloader").hide()
-    setTimeout(function(){ $("#tags_search_input").focus() }, 300);
+    setTimeout(function(){ $("#tags_search_input").focus() }, 150);
 
   }
 

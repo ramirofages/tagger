@@ -8,6 +8,7 @@ import jetpack from 'fs-jetpack'; // module loaded from npm
 import env from './env';
 var app = remote.app;
 const {dialog} = require('electron').remote
+import handlebars from 'handlebars'
 var appDir = jetpack.cwd(app.getAppPath());
 
 import * as FileUploadBinder      from './ui-binders/file_upload_binder';
@@ -22,3 +23,13 @@ FileUploadBinder.init()
 FileSearchBinder.init()
 TagViewerBinder.init()
 FileOperationBinder.init()
+//
+// let source   = $("#search_results_file_list_template").html();
+// let template = handlebars.compile(source);
+// let context = {files: [
+//                     {id:5, name: "hola",  path: "asd/asd", tags: ["asd","asd2"]}
+//               ]}
+// console.log("contexto:")
+// console.log(context)
+// let html    = template(context);
+// $("#search_results_file_list").append(html)
