@@ -13,13 +13,17 @@ function init()
       {
         file_operation_controller.open_file(target.attr('path'))
       }
+      if(target.attr('button-action')=='open_new')
+      {
+        file_operation_controller.open_new_file(target.attr('path'))
+      }
       if(target.attr('button-action')=='export')
       {
         file_operation_controller.export_file(target.attr('path'))
       }
       if(target.attr('button-action')=='export_results')
       {
-        file_operation_controller.export_search_results()
+        file_operation_controller.export_search_results($("#tags_search_input").val().trim())
       }
 
     }

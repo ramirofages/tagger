@@ -20,6 +20,11 @@ export default class FileSearchController
     shell.openItem(this.db_base_path+path)
   }
 
+  open_new_file(path)
+  {
+    shell.openItem(path)
+  }
+
   export_file(source)
   {
     let dest = dialog.showSaveDialog({title: "Export file",
@@ -33,18 +38,17 @@ export default class FileSearchController
 
   }
 
-  export_search_results()
+  export_search_results(input_tags)
   {
-    let tag_string = $("#tags_search_input").val().trim()
-    if(tag_string.length > 0)
+    if(input_tags.length > 0)
     {
-      let tags = tag_string.split(" ")
+      let tags = input_tags.split(" ")
       let files_promise = this.file_storage.files_with_tags(tags)
-      let folder_path = app.getPath('desktop') +"\\" + tag_string+"\\"
+      let dest_folder_path = app.getPath('desktop') +"\\" + input_tags+"\\"
       files_promise.then( files =>{
         if(files.length > 0)
         {
-          jetpack.dir(folder_path)
+          jetpack.dir(dest_folder_path)
 
           this.progress_bar.init(files.length, ()=>{
             $("#search_export_complete").show()
@@ -52,10 +56,10 @@ export default class FileSearchController
           })
 
           for (let f of files) {
+            let source_path = this.db_base_path+f.path
+            let new_file_name = this._get_available_name(source_path, dest_folder_path)
 
-            let new_file_name = this._get_new_file_name(this.db_base_path+f.path, folder_path)
-
-            jetpack.copyAsync(this.db_base_path+f.path,folder_path+new_file_name).then((id)=>{
+            jetpack.copyAsync(source_path,dest_folder_path+new_file_name).then( id=>{
               this.progress_bar.item_finished()
             })
           }
@@ -74,7 +78,7 @@ export default class FileSearchController
     else
       return "."+source.split("\\").pop().split('.').pop()
   }
-  _get_new_file_name(source_path, dest_folder_path)
+  _get_available_name(source_path, dest_folder_path)
   {
 
     let new_file_name = source_path.split("\\").pop()
