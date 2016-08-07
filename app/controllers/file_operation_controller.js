@@ -11,13 +11,12 @@ export default class FileSearchController
   constructor()
   {
     let config_dir = app.getPath("documents")+"\\"+"tagger_config\\"
-    this.db_base_path = jetpack.read(config_dir+'database_config.json', 'json').db_path+ "\\";
     this.progress_bar = new ProgressBar($("#search_files_bar"))
     this.file_storage = new FileStorage()
   }
   open_file(path)
   {
-    shell.openItem(this.db_base_path+path)
+    shell.openItem(path)
   }
 
   open_new_file(path)
@@ -27,14 +26,13 @@ export default class FileSearchController
 
   export_file(source)
   {
-    console.log("open"+ this.db_base_path+path)
     let dest = dialog.showSaveDialog({title: "Export file",
                                       defaultPath: app.getPath("desktop")+"\\"+source.split("\\").pop(),
                                       filters: []
                                     })
     if(dest != null)
     {
-      jetpack.copy(this.db_base_path+source, dest+this._get_extension(source,dest));
+      jetpack.copy(source, dest+this._get_extension(source,dest));
     }
 
   }
@@ -56,11 +54,10 @@ export default class FileSearchController
             setTimeout(()=>{$("#search_export_complete").hide()},4000)
           })
 
-          for (let f of files) {
-            let source_path = this.db_base_path+f.path
-            let new_file_name = this._get_available_name(source_path, dest_folder_path)
+          for (let source of files) {
+            let new_file_name = this._get_available_name(source.path, dest_folder_path)
 
-            jetpack.copyAsync(source_path,dest_folder_path+new_file_name).then( id=>{
+            jetpack.copyAsync(source.path,dest_folder_path+new_file_name).then( id=>{
               this.progress_bar.item_finished()
             })
           }

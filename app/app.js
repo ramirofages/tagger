@@ -16,6 +16,8 @@ import * as TabBinder             from './ui-binders/tab_binder';
 import * as FileSearchBinder      from './ui-binders/file_search_binder';
 import * as TagViewerBinder       from './ui-binders/tag_viewer_binder';
 import * as FileOperationBinder   from './ui-binders/file_operation_binder';
+import * as FileEditBinder        from './ui-binders/file_edit_binder';
+
 
 
 TabBinder.init()
@@ -23,6 +25,8 @@ FileUploadBinder.init()
 FileSearchBinder.init()
 TagViewerBinder.init()
 FileOperationBinder.init()
+FileEditBinder.init()
+
 //
 // let source   = $("#search_results_file_list_template").html();
 // let template = handlebars.compile(source);

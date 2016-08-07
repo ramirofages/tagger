@@ -13,161 +13,215 @@
 <body>
     <header></header>
     <main >
-    <div class="row">
-      <div class="col s12" style="padding: 0">
-        <ul class="tabs">
-          <li  class="tab col s3">
-            <a href="#upload_file">Upload files</a>
-          </li>
-          <li  class="tab col s3">
-            <a class="active" href="#search_file">Search files</a>
-          </li>
-        </ul>
-      </div>
-      <div id="upload_file" class="col s12 tab_content">
-        <div id="file_acquired" class="row" hidden>
-          <div class="col s12">
+      <div class="row">
+        <div class="col s12" style="padding: 0">
+          <ul class="tabs">
+            <li  class="tab col s3">
+              <a href="#upload_file">Upload files</a>
+            </li>
+            <li  class="tab col s3">
+              <a class="active" href="#search_file">Search files</a>
+            </li>
+            <li  class="tab col s3">
+              <a  href="#edit_file">Edit file</a>
+            </li>
+            <li  class="tab col s3">
+              <a href="#app_info">Info</a>
+            </li>
+          </ul>
+        </div>
+        <div id="upload_file" class="col s12 tab_content">
+          <div id="file_acquired" class="row" hidden>
+            <div class="col s12">
 
-            <ul id="uploaded_file_list">
-              <!-- ################### FILES TO UPLOAD LIST TEMPLATE ############################## -->
-              <script id="uploaded_file_list_template" type="text/x-handlebars-template">
+              <ul id="uploaded_file_list">
+                <!-- ################### FILES TO UPLOAD LIST TEMPLATE ############################## -->
+                <script id="uploaded_file_list_template" type="text/x-handlebars-template">
 
-                  {{#files}}
-                    <li style="opacity: 0">
-                      <div class="card-panel blue-grey lighten-5">
-                        <input id='file_name' value="{{name}}" style="font-size: 1.5rem"></input>
-                        <button button-action='open_new' path="{{path}}" class='btn waves-effect waves-light new-file-button'>Open</button>
-                        <strong id='file_path'>{{path}}</strong><br><br>
-                        <textarea id="file_tags" class="materialize-textarea" style="padding: 0; margin: 0" placeholder="tag1 tag-2" ></textarea>
-                        <label for="file_tags" class="">file tags</label>
-                      </div>
-                    </li>
-                  {{/files}}
-              </script>
+                    {{#files}}
+                      <li style="opacity: 0">
+                        <div class="card-panel blue-grey lighten-5">
+                          <input id='file_name' value="{{name}}" style="font-size: 1.5rem"></input>
+                          <button button-action='open_new' path="{{path}}" class='btn waves-effect waves-light new-file-button'>Open</button>
+                          <strong id='file_path'>{{path}}</strong><br><br>
+                          <textarea id="file_tags" class="materialize-textarea" style="padding: 0; margin: 0" placeholder="tag1 tag-2" ></textarea>
+                          <label for="file_tags" class="">file tags</label>
+                        </div>
+                      </li>
+                    {{/files}}
+                </script>
 
-              <!-- ######################################################################## -->
-            </ul>
-            <div class="valign-wrapper">
-              <button id="save_files_btn" class="btn waves-effect waves-light center-block valign">Guardar
-                <i class="material-icons right">send</i>
-              </button>
+                <!-- ######################################################################## -->
+              </ul>
+              <div class="valign-wrapper">
+                <button id="save_files_btn" class="btn waves-effect waves-light center-block valign">Save
+                  <i class="material-icons right">send</i>
+                </button>
+              </div>
+
             </div>
 
           </div>
 
+          <div id="file_upload_progress_bar" class="progress" style='display:none'>
+              <div class="determinate" style="width: 0%"></div>
+          </div>
+
+          <div id="file_holder">
+              <div class="valign-wrapper" >
+                  <i class="large material-icons orange-text text-darken-2 valign center" style="font-size: 15rem; width:100%">input</i>
+              </div>
+              <h4 class="blue-grey-text text-lighten-5 center-align"> Drag and drop files here <br> (or on any tab) </h4>
+          </div>
+
+
         </div>
 
-        <div id="file_upload_progress_bar" class="progress" style='display:none'>
-            <div class="determinate" style="width: 0%"></div>
-        </div>
 
-        <div id="file_holder">
-            <div class="valign-wrapper" >
-                <i class="large material-icons orange-text text-darken-2 valign center" style="font-size: 15rem; width:100%">input</i>
+        <div id="search_file" class="col s12 tab_content">
+          <div class="row" >
+            <div class="col s4 m3">
+              <h5 class="white-text center-align"> tag viewer </h5>
+              <div class="card large orange" style="overflow-y: auto">
+
+                <ul id="tag_viewer_list" class="collection" style="margin: 0.3rem 0.3rem">
+
+                </ul>
+
+
+              </div>
             </div>
-            <h4 class=" white-text center-align"> Drag and drop files here </h4>
-        </div>
+
+            <div class="col s8 m9">
+                <div class="input-field">
+                  <input id="tags_search_input" type="text" >
+                  <label for="tags_search_input">tags search</label>
+                </div>
+              <div class="valign-wrapper">
+                <h5 class="white-text valign center" style="width: 100%">
+                  search results
+                  <button button-action="export_results"  class="btn waves-effect waves-light right tooltipped"
+                                                          data-position="left"
+                                                          data-delay="50"
+                                                          data-tooltip="Exports search results to a new folder in desktop"
+                                                          style="font-size: 1rem; padding: 0 4px">Export results</button>
+
+                </h5>
+
+              </div>
+              <div id="search_export_complete" class="card-panel green base white-text" hidden>Search results were exported to the desktop successfully</div>
+              <div id="search_files_bar" class="progress" style='display:none'>
+                  <div class="determinate" style="width: 0%"></div>
+              </div>
 
 
-      </div>
+              <ul id="search_results_file_list">
+                <!-- ################### SEARCH RESULT TEMPLATE ############################## -->
+                <script id="search_results_file_list_template" type="text/x-handlebars-template">
+                  {{#if files.length}}
+                    {{#files}}
+                      <li>
+                        <div class="card blue-grey lighten-5" style="padding-left: 10px; border-radius: 4px;">
+                          <div class="row">
+                            <div class="col s11">
+                              <h5 class="truncate">
+                                <button button-action="edit" file-id="{{id}}" class="btn-floating btn-small waves-effect waves-light orange">
+                                  <i class="material-icons">mode_edit</i>
+                                </button>
+                                {{name}}
+                              </h5>
+                              <div class="chips" style="margin-bottom: 0; border-bottom: 0">
+                                {{#tags}}
+                                <div class="chip white-text">{{this}}</div>
+                                {{/tags}}
+                              </div>
+                            </div>
+                            <div class="col s1">
+
+                              <button button-action="export" path="{{path}}"  class="btn-small btn-floating waves-effect waves-light right tooltipped"
+                                                                              data-position="left"
+                                                                              data-delay="50"
+                                                                              data-tooltip="Export file"
+                                                                              style="margin-bottom: 5px; margin-top: 5px;">
+                                <i class="material-icons">file_download</i>
+                              </button>
+                              <button button-action="open" path="{{path}}" class="btn-small btn-floating waves-effect waves-light right tooltipped"
+                                                                            data-position="left"
+                                                                            data-delay="50"
+                                                                            data-tooltip="Open file">
+                                <i class="material-icons">folder_open</i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+
+                      </li>
+                    {{/files}}
+                  {{else}}
+                    <li>
+                      <div class="card red lighten-1" style="padding-left: 10px; border-radius: 4px;">
+                        <h5 class='center-align'> No results </h5>
+                      </div>
+                    </li>
+                  {{/if}}
 
 
-      <div id="search_file" class="col s12 tab_content">
-        <div class="row" >
-          <div class="col s4 m3">
-            <h5 class="white-text center-align"> tag viewer </h5>
-            <div class="card large orange" style="overflow-y: auto">
+                </script>
 
-              <ul id="tag_viewer_list" class="collection" style="margin: 0.3rem 0.3rem">
+                <!-- ######################################################################## -->
+
 
               </ul>
 
-
             </div>
           </div>
+        </div>
+        <div id="edit_file" class="col s12 tab_content">
 
-          <div class="col s8 m9">
-              <div class="input-field">
-                <input id="tags_search_input" type="text" >
-                <label for="tags_search_input">tags search</label>
-              </div>
-            <div class="valign-wrapper">
-              <h5 class="white-text valign center" style="width: 100%">
-                search results
-                <button button-action="export_results"  class="btn waves-effect waves-light right tooltipped"
-                                                        data-position="left"
-                                                        data-delay="50"
-                                                        data-tooltip="Exports search results to a new folder in desktop"
-                                                        style="font-size: 1rem; padding: 0 4px">Export results</button>
+          <div id="file_update_successful" class="card-panel green base white-text" hidden>File was updated successfully</div>
 
-              </h5>
+          <ul id="edit_file_list">
+          <!-- ################### EDIT FILE TEMPLATE ############################## -->
+            <script id="file_edit_template" type="text/x-handlebars-template">
 
-            </div>
-            <div id="search_export_complete" class="card-panel green base white-text" hidden>Search results were exported to the desktop successfully</div>
-            <div id="search_files_bar" class="progress" style='display:none'>
-                <div class="determinate" style="width: 0%"></div>
-            </div>
+                  <!-- <li style="opacity: 0"> -->
+                  <li style="opacity: 0">
+                    <div class="card-panel blue-grey lighten-5">
+                      <input id="file_id" value="{{id}}"type="hidden">
+
+                      <input id='file_name' value="{{name}}" style="font-size: 1.5rem"></input>
+                      <button button-action='open_new' path="{{path}}" class='btn waves-effect waves-light new-file-button'>Open</button>
+                      <br><br>
+                      <textarea id="file_tags"  class="materialize-textarea"
+                                                style="padding: 0; margin: 0"
+                                                placeholder="tag1 tag-2">{{#tags}}{{this}} {{/tags}}</textarea>
 
 
-            <ul id="search_results_file_list">
-              <!-- ################### SEARCH RESULT TEMPLATE ############################## -->
-              <script id="search_results_file_list_template" type="text/x-handlebars-template">
-                {{#if files.length}}
-                  {{#files}}
-                    <li>
-                      <div class="card blue-grey lighten-5" style="padding-left: 10px; border-radius: 4px;">
-                        <div class="row">
-                          <div class="col s11">
-                            <h5 class="truncate">
-                              <a class="btn-floating btn-small waves-effect waves-light orange"><i class="material-icons">mode_edit</i></a>
-                              {{name}}
-                            </h5>
-                            <div class="chips" style="margin-bottom: 0; border-bottom: 0">
-                              {{#tags}}
-                              <div class="chip white-text">{{this}}</div>
-                              {{/tags}}
-                            </div>
-                          </div>
-                          <div class="col s1">
 
-                            <button button-action="export" path="{{path}}"  class="btn-small btn-floating waves-effect waves-light right tooltipped"
-                                                                            data-position="left"
-                                                                            data-delay="50"
-                                                                            data-tooltip="Export file"
-                                                                            style="margin-bottom: 5px; margin-top: 5px;">
-                              <i class="material-icons">file_download</i>
-                            </button>
-                            <button button-action="open" path="{{path}}" class="btn-small btn-floating waves-effect waves-light right tooltipped"
-                                                                          data-position="left"
-                                                                          data-delay="50"
-                                                                          data-tooltip="Open file">
-                              <i class="material-icons">folder_open</i>
-                            </button>
-                          </div>
-                        </div>
-                      </div>
 
-                    </li>
-                  {{/files}}
-                {{else}}
-                  <li>
-                    <div class="card red lighten-1" style="padding-left: 10px; border-radius: 4px;">
-                      <h5 class='center-align'> No results </h5>
+                      <label for="file_tags">file tags</label>
                     </div>
                   </li>
-                {{/if}}
 
+            </script>
+          </ul>
+          <div class="valign-wrapper">
+            <button id="update_file_btn" class="btn waves-effect waves-light center-block valign">Update
+              <i class="material-icons right">send</i>
+            </button>
+          </div>
 
-              </script>
-
-              <!-- ######################################################################## -->
-
-
-            </ul>
+          <!-- ######################################################################## -->
+        </div>
+        <div id="app_info" class="col s12 tab_content">
+          <div class="container">
+            <div class="valign-wrapper">
+              <h4 class="white-text"> Useful tips</h4>
+            </div>
 
           </div>
-      </div>
-    </div>
+        </div>
+
     </main>
     <footer></footer>
     <script>

@@ -2,7 +2,6 @@ import FileUploadView from '../views/file_upload_view';
 
 import FileStorage from '../models/file_storage'
 import TagStorage from '../models/tag_storage'
-import ProgressBar from '../ui_components/progress_bar'
 
 
 export default class FileUploadController
@@ -12,7 +11,7 @@ export default class FileUploadController
     this.file_upload_view = new FileUploadView()
     this.file_storage = new FileStorage()
     this.tag_storage = new TagStorage()
-    this.progress_bar = new ProgressBar($("#file_upload_progress_bar"))
+
 
   }
   on_enter()
@@ -34,16 +33,23 @@ export default class FileUploadController
   save_files(files)
   {
     let all_tags = []
-    $('#file_acquired').hide()
-    this.progress_bar.init(files.length,()=>{
-      this.tag_storage.save_tags(this._filter_tags(all_tags))
-    })
+    let total_items = files.length +1
+    this.file_upload_view.init_upload(total_items)
+    let item_counter = 0
 
     for (let file of files)
     {
       all_tags.push(file.tags)
       this.file_storage.save_file(file).then( id=>{
-        this.progress_bar.item_finished()
+        this.file_upload_view.item_finished()
+        item_counter++
+        if(item_counter === total_items -1)
+        {
+          this.tag_storage.save_tags(this._filter_tags(all_tags)).then(()=>{
+            this.file_upload_view.item_finished()  
+          })
+        }
+
       })
     }
 

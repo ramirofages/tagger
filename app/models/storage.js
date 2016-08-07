@@ -3,19 +3,23 @@ export default class Storage
 {
   constructor()
   {
-    this.db = new Dexie('tagger_db');
-    this.db.version(1).stores({files: "++id,name,path,*tags"})
-    this.db.version(2).stores({tags: "&name"                })
+    this.database = new Dexie('tagger_db');
+    this.database.version(1).stores({files: "++id,name,path,*tags"})
+    this.database.version(2).stores({tags: "&name"                })
   }
 
   get files()
   {
-    return this.db.files
+    return this.database.files
   }
   get tags()
   {
-    return this.db.tags
+    return this.database.tags
   }
 
+  get db()
+  {
+    return this.database
+  }
 
 }

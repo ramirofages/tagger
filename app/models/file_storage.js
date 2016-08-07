@@ -34,11 +34,30 @@ export default class FileStorage
 
   }
 
+  retrieve_by_id(id)
+  {
+    return this.storage.files.where('id').equals(parseInt(id)).toArray().then( files=>{
+      let file = files[0]
+      file.path = this._full_path(file.path)
+      return file
+    })
+  }
+  update(id,name,tags)
+  {
+    let int_id = parseInt(id)
+    return this.storage.files.where('id').equals(parseInt(id)).first(file=>{
+      return this.storage.files.put({id: int_id,name: name, path: file.path,tags: tags });
+    })
+  }
+
   files_with_tags(tags)
   {
     return this.storage.files.filter(file =>{
       return this.containsAll(tags, file.tags)
-    }).toArray()
+    }).toArray(files=>{
+
+      return this._convert_to_full_path(files)
+    })
   }
 
 
@@ -53,6 +72,18 @@ export default class FileStorage
        }
     }
     return true;
+  }
+
+  _convert_to_full_path(files)
+  {
+    for(let f of files)
+      f.path = this._full_path(f.path)
+
+    return files
+  }
+  _full_path(relative_file_path)
+  {
+    return this.db_base_path + relative_file_path
   }
 
 }

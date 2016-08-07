@@ -1,9 +1,11 @@
 import FileOperationController from '../controllers/file_operation_controller';
+import FileEditController from '../controllers/file_edit_controller'
 
 export
 function init()
 {
   let file_operation_controller = new FileOperationController()
+  let file_edit_controller = new FileEditController()
 
   $("body").on("click", (e)=>{
     let target = $(e.target)
@@ -27,6 +29,10 @@ function init()
       if(target.attr('button-action')=='export_results')
       {
         file_operation_controller.export_search_results($("#tags_search_input").val().trim())
+      }
+      if(target.attr('button-action')=='edit')
+      {
+        file_edit_controller.edit_file(target.attr('file-id'))
       }
 
     }
