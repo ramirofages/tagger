@@ -6,11 +6,11 @@
       "target": [
         "nsis"
       ],
-      "icon": "resources/windows/icon.ico"
+      "icon": "resources/windows/icon_new.ico"
     },
     "nsis": {
       "oneClick": true,
-      "installerHeaderIcon": "resources/windows/setup_icon.ico"
+      "installerHeaderIcon": "resources/windows/setup_icon_new.ico"
     },
     "mac": {
       "icon": "resources/osx/icon.icns"

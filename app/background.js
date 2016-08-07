@@ -67,12 +67,16 @@ app.on('ready', function () {
 
 
       var mainWindow = createWindow('main', {
-          width: 1000,
-          height: 600
+          width: 900,
+          height: 600,
+          show: false,
+          backgroundColor: '#263238'
       });
 
       mainWindow.loadURL('file://' + __dirname + '/app.html');
-
+      mainWindow.once('ready-to-show', () => {
+        setTimeout(()=>{mainWindow.show()}, 300) //so it doesn't render while still adjusting element positions
+      })
       if (env.name !== 'production') {
           mainWindow.openDevTools();
       }
