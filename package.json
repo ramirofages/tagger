@@ -10,7 +10,7 @@
     },
     "nsis": {
       "oneClick": true,
-      "installerHeaderIcon": "resources/windows/setup-icon.ico"
+      "installerHeaderIcon": "resources/windows/setup_icon.ico"
     },
     "mac": {
       "icon": "resources/osx/icon.icns"

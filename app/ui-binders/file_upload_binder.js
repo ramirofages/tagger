@@ -27,9 +27,12 @@ function init()
       let name = $(element).find("#file_name").val()
       let path = $(element).find("#file_path").text()
       let tags = $(element).find("#file_tags").val().trim().split(" ")
-      files.push({name: name, path: path, tags: tags})
+      if( tags.length  > 0)
+        files.push({name: name, path: path, tags: tags})
+
     })
-    file_upload_controller.save_files(files)
+    if(files.length > 0)
+      file_upload_controller.save_files(files)
   })
 
 
